@@ -1,0 +1,111 @@
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.calculator {
+    box-shadow: 0px 0px 25px 0 rgb(115, 153, 184);
+}
+
+.calculator-screen {
+    width: 300px;
+    height: 100px;
+}
+
+.screen-user-input {
+    height: 50%;
+    text-align: right;
+    border-top: 1px dashed gray;
+}
+
+.screen-input-result {
+    height: 50%;
+}
+
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    grid-template-areas:
+    "seven eight nine divide"
+    "four five six multiply"
+    "one two three minus"
+    "zero point equal plus";
+    background-color: antiquewhite;
+}
+
+button {
+    height: 50px;
+}
+button:focus {
+    background-color: rgb(255, 227, 210);
+}
+
+.operator {
+    background-color: rgb(207, 195, 195);
+}
+
+.number {
+    background-color: rgb(255, 241, 241);
+}
+
+.zero {
+    grid-area: zero;
+}
+
+.one {
+    grid-area: one;
+}
+
+.two {
+    grid-area: two;
+}
+
+.three {
+    grid-area: three;
+}
+
+.four {
+    grid-area: four;
+}
+
+.five {
+    grid-area: five;
+}
+
+.six {
+    grid-area: six;
+}
+
+.seven {
+    grid-area: seven;
+}
+
+.eight {
+    grid-area: eight;
+}
+
+.nine {
+    grid-area: nine;
+}
+
+.minus {
+    grid-area: minus;
+}
+
+.plus {
+    grid-area: plus;
+}
+
+.divide {
+    grid-area: divide;
+}
+
+.multiply {
+ grid-area: multiply;
+}
+
+.equal {
+    grid-area: equal;
+}
