@@ -1,4 +1,6 @@
-
+body {
+    font-family: system-ui;
+}
 .container {
     display: flex;
     justify-content: center;
@@ -17,21 +19,24 @@
 .screen-user-input {
     height: 50%;
     text-align: right;
+    font-size: 3rem;
     border-top: 1px dashed gray;
 }
 
 .screen-input-result {
     height: 50%;
+    text-align: right;
 }
 
 .buttons {
     display: grid;
     grid-template-columns: repeat(4, auto);
     grid-template-areas:
+    "del del del del"
     "seven eight nine divide"
     "four five six multiply"
     "one two three minus"
-    "zero point equal plus";
+    "point zero equal plus";
     background-color: antiquewhite;
 }
 
@@ -108,4 +113,8 @@ button:focus {
 
 .equal {
     grid-area: equal;
+}
+
+.del {
+    grid-area: del;
 }
