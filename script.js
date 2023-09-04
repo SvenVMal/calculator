@@ -1,95 +1,100 @@
-let firstNumber = "";
-let secondNumber = "";
+let currentNumber = "";
+let previousNumber = "";
 let operator = "";
 
 let displayValue = "";
 
-let oneBtn = document.getElementById(1);
-let twoBtn = document.getElementById(2);
-let threeBtn = document.getElementById(3);
-let fourBtn = document.getElementById(4);
-let fiveBtn = document.getElementById(5);
-let sixBtn = document.getElementById(6);
-let sevenBtn = document.getElementById(7);
-let eightBtn = document.getElementById(8);
-let nineBtn = document.getElementById(9);
-let zeroBtn = document.getElementById(0);
-let equalBtn = document.getElementById("equal")
-let userInput = document.getElementById('user-input');
-let inputResult = document.getElementById('input-result');
+let currentInput = document.getElementById('current-input');
+let previousInput = document.getElementById('previous-input');
+
+const numberButtons = document.querySelectorAll("#number");
+const operatorButtons = document.querySelectorAll("#operator");
+const equalBtn = document.getElementById('equal');
+const delBtn = document.getElementById('del');
+
+for (let i = 0; i < numberButtons.length; i++) {
+    numberButtons[i].addEventListener('click', () => {
+        currentNumber += numberButtons[i].textContent;
+
+        // update screen
+        currentInput.textContent = currentNumber;
+
+    });
+}
+
+for (let i = 0; i < operatorButtons.length; i++) {
+    operatorButtons[i].addEventListener('click', () => {
+        operator = operatorButtons[i].textContent;
+
+        // if operator pressed, put current input to second
+        // input plus show the operator in second
+        previousNumber = currentNumber;
+        currentNumber = "";
+        
+        // update screen
+        previousInput.textContent = previousNumber + operator;
+        currentInput.textContent = currentNumber;
+    });
+}
 
 
+equalBtn.addEventListener('click', () => {
+    let result = operate(operator, previousNumber, currentNumber);
 
-
-let buttons = document.querySelector('.buttons');
-buttons.addEventListener('click', (e) => {
-    
-    const numberInput = e.target.textContent;
-    userInput.textContent = numberInput;
-    console.log(e.target.textContent);
-
-    displayValue += numberInput;
-
-    inputResult.textContent = displayValue;
+    // update display
+    currentInput.textContent = result;
+    previousInput.textContent = '';
 });
 
-/*
-oneBtn.onclick = () => {
-    userInput.textContent = oneBtn.textContent;
-};
+delBtn.addEventListener('click', () => {
+    del();
+});
 
-twoBtn.onclick = () => {
-    userInput.textContent = "2";
-};
-
-threeBtn.onclick = () => {
-    userInput.textContent = "3";
-};
-
-fourBtn.onclick = () => {
-    userInput.textContent = "4";
-};
-
-fiveBtn.onclick = () => {
-    userInput.textContent = "5";
-};
-
-sixBtn.onclick = () => {
-    userInput.textContent = "6";
-};
-
-sevenBtn.onclick = () => {
-    userInput.textContent = "7";
-};
-
-eightBtn.onclick = () => {
-    userInput.textContent = "8";
-};
-
-nineBtn.onclick = () => {
-    userInput.textContent = "9";
-};
-
-zeroBtn.onclick = () => {
-    userInput.textContent = "0";
-};*/
+function del() {
+    currentNumber = '';
+    previousNumber = '';
+    currentInput.textContent = '';
+    previousInput.textContent = '';
+}
 
 function add(a, b) {
+    a = parseInt(a);
+    b = parseInt(b);
     return a + b;
 }
 
 function subtract(a, b) {
+    a = parseInt(a);
+    b = parseInt(b);
     return a - b;
 }
 
 function multiply(a, b) {
+    a = parseInt(a);
+    b = parseInt(b);
     return a * b;
 }
 
 function divide(a, b) {
+    a = parseInt(a);
+    b = parseInt(b);
     return a / b;
 }
 
 function operate(operator, a, b) {
+    if (operator === '+') {
+        return add(a, b);
+    }
 
+    if (operator === '-') {
+        return subtract(a, b);
+    }
+
+    if (operator === '*') {
+        return multiply(a, b);
+    }
+
+    if (operator === '/') {
+        return divide(a, b);
+    }
 }
