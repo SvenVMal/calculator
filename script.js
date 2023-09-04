@@ -53,6 +53,7 @@ delBtn.addEventListener('click', () => {
 function del() {
     currentNumber = '';
     previousNumber = '';
+    operator = '';
     currentInput.textContent = '';
     previousInput.textContent = '';
 }
