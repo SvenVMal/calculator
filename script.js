@@ -2,20 +2,24 @@ let currentNumber = "";
 let previousNumber = "";
 let operator = "";
 
-let displayValue = "";
+const currentInput = document.getElementById('current-input');
+const previousInput = document.getElementById('previous-input');
 
-let currentInput = document.getElementById('current-input');
-let previousInput = document.getElementById('previous-input');
+const numberButtons = document.querySelectorAll(".number");
+const operatorButtons = document.querySelectorAll(".operator");
+const equalBtn = document.querySelector('.equal');
+const delBtn = document.querySelector('.del');
+const clearBtn = document.querySelector('.clear');
 
-const numberButtons = document.querySelectorAll("#number");
-const operatorButtons = document.querySelectorAll("#operator");
-const equalBtn = document.getElementById('equal');
-const delBtn = document.getElementById('del');
 
 for (let i = 0; i < numberButtons.length; i++) {
     numberButtons[i].addEventListener('click', () => {
+        // append numbers
+        if (numberButtons[i].textContent === '.' && currentNumber.includes('.')) {
+            return;
+        }
         currentNumber += numberButtons[i].textContent;
-
+        
         // update screen
         currentInput.textContent = currentNumber;
 
@@ -24,33 +28,60 @@ for (let i = 0; i < numberButtons.length; i++) {
 
 for (let i = 0; i < operatorButtons.length; i++) {
     operatorButtons[i].addEventListener('click', () => {
-        operator = operatorButtons[i].textContent;
 
-        // if operator pressed, put current input to second
-        // input plus show the operator in second
+        if (currentNumber === '') {
+            return;
+        }
+        
+        if (previousNumber !== ''){
+            let result = operate(operator, previousNumber, currentNumber);
+            previousNumber = result;
+            operator = operatorButtons[i].textContent;
+            currentNumber = '';
+            previousInput.textContent = result + operator;
+            currentInput.textContent = '';
+            return;
+            
+        }
+        
+        // append operator
+        operator = operatorButtons[i].textContent;
         previousNumber = currentNumber;
         currentNumber = "";
         
         // update screen
         previousInput.textContent = previousNumber + operator;
-        currentInput.textContent = currentNumber;
+        currentInput.textContent = '';
     });
 }
 
-
 equalBtn.addEventListener('click', () => {
+    
     let result = operate(operator, previousNumber, currentNumber);
 
-    // update display
     currentInput.textContent = result;
     previousInput.textContent = '';
+    currentNumber = '';
+    previousNumber = '';
+    operator = '';
 });
 
 delBtn.addEventListener('click', () => {
     del();
 });
 
+clearBtn.addEventListener('click', () => {
+    clear();
+});
+
 function del() {
+    // should only delete first input
+    currentNumber = currentNumber.slice(0, -1);
+    currentInput.textContent = currentNumber;
+}
+
+function clear() {
+    // should clear everything
     currentNumber = '';
     previousNumber = '';
     operator = '';
@@ -59,30 +90,33 @@ function del() {
 }
 
 function add(a, b) {
-    a = parseInt(a);
-    b = parseInt(b);
+    a = parseFloat(a);
+    b = parseFloat(b);
     return a + b;
 }
 
 function subtract(a, b) {
-    a = parseInt(a);
-    b = parseInt(b);
+    a = parseFloat(a);
+    b = parseFloat(b);
     return a - b;
 }
 
 function multiply(a, b) {
-    a = parseInt(a);
-    b = parseInt(b);
+    a = parseFloat(a);
+    b = parseFloat(b);
     return a * b;
 }
 
 function divide(a, b) {
-    a = parseInt(a);
-    b = parseInt(b);
+    a = parseFloat(a);
+    b = parseFloat(b);
     return a / b;
 }
 
 function operate(operator, a, b) {
+    if (a === '' || b === '') {
+        return;
+    }
     if (operator === '+') {
         return add(a, b);
     }
